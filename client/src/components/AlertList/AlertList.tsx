@@ -1,5 +1,5 @@
 import React from 'react'
-import { AlertItemProps } from '../AlertItem/AlertItem'
+import { AlertItemProps } from '@shared/types/alertItemTypes'
 import AlertItem from '../AlertItem/AlertItem'
 
 type AlertListProps = {

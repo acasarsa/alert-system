@@ -1,10 +1,5 @@
 import React from 'react'
-
-export interface AlertItemProps {
-  time: Date
-  type: string // this will be updated to be props to color code based on word.
-  location: string
-}
+import { AlertItemProps } from '@shared/types/alertItemTypes'
 
 const AlertItem: React.FC<AlertItemProps> = ({ time, location, type }) => {
   const [elapsedTime, setElapsedTime] = React.useState('')

@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+import './App.css'
+import AlertList from './components/AlertList/AlertList'
+import { mockAlerts } from './mockData'
 
 function App() {
+  const [darkTheme, setDarkTheme] = useState(() =>
+    localStorage.getItem('darkTheme')
+      ? localStorage.getItem('darkTheme') === 'true'
+      : window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+  )
+
+  useEffect(() => {
+    document.body.classList.toggle('dark-theme', darkTheme)
+    localStorage.setItem('darkTheme', darkTheme.toString())
+  }, [darkTheme])
+
+  const toggleTheme = () => {
+    setDarkTheme(!darkTheme)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={toggleTheme}>Toggle Theme</button>
+      <AlertList items={mockAlerts} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

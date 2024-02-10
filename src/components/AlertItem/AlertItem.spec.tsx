@@ -1,9 +1,25 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import AlertItem from './AlertItem'
+import { mockAlerts } from '../../mockData'
 
-test('renders an alert message', () => {
-  render(<AlertItem message="Test Alert" />)
-  const alertElement = screen.getByText(/test alert/i)
+describe('AlertItem', () => {
+  it('renders correctly', () => {
+    const mockTime = new Date()
+    render(<AlertItem time={mockTime} location="Kitchen" type="Fire" />)
 
-  expect(alertElement).toBeInTheDocument()
+    expect(screen.getByText(/Fire/i)).toBeInTheDocument()
+    expect(screen.getByText(/Kitchen/i)).toBeInTheDocument()
+  })
+
+  it('shows "1s ago" for an alert triggered 1 second ago', () => {
+    jest.useFakeTimers()
+    const mockTime = new Date(Date.now())
+    render(<AlertItem time={mockTime} type="Warning" location="Server Room" />)
+
+    // simulate passage of 1 second)
+    act(() => jest.advanceTimersByTime(1000))
+
+    expect(screen.getByText(/0m 01s ago/i)).toBeInTheDocument()
+    jest.useRealTimers()
+  })
 })

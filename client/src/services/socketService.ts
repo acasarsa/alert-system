@@ -1,13 +1,15 @@
 import io from 'socket.io-client'
+import { AlertItemProps } from '@shared/types/alertTypes'
 
-const socket = io('http://your_server_address')
+const socket = io('http://localhost:4000')
 
-const triggerAlert = (message: string) => {
-  socket.emit('triggerAlert', { message })
-}
-
-const onAlert = (callback: (alert: any) => void) => {
+// set up a subscription to "newAlert" events -> listens for this event
+export const subscribeToAlerts = (
+  callback: (alert: AlertItemProps) => void
+): void => {
   socket.on('newAlert', callback)
 }
 
-export { triggerAlert, onAlert }
+export const triggerAlert = (alertData: AlertItemProps): void => {
+  socket.emit('newAlert', alertData)
+}

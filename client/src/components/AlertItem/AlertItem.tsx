@@ -1,5 +1,5 @@
 import React from 'react'
-import { AlertItemProps } from '@shared/types/alertItemTypes'
+import { AlertItemProps } from '@shared/types/alertTypes'
 
 const AlertItem: React.FC<AlertItemProps> = ({ time, location, type }) => {
   const [elapsedTime, setElapsedTime] = React.useState('')

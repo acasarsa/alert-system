@@ -1,6 +1,6 @@
 import * as http from 'http'
 import { Server, Socket } from 'socket.io'
-import { AlertItemProps } from '@shared/types/alertItemTypes'
+import { AlertItemProps } from '@shared/types/alertTypes'
 
 const httpServer = http.createServer()
 const io = new Server(httpServer, {

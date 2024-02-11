@@ -6,8 +6,11 @@ const AlertItem: React.FC<AlertItemProps> = ({ time, location, type }) => {
 
   React.useEffect(() => {
     const updateElapsedTime = () => {
+      const alertCreateTime = new Date(time)
       const now = new Date()
-      const diffInSeconds = Math.round((now.getTime() - time.getTime()) / 1000)
+      const diffInSeconds = Math.round(
+        (now.getTime() - alertCreateTime.getTime()) / 1000
+      )
       const minutes = Math.floor(diffInSeconds / 60)
       const seconds = diffInSeconds % 60
 
@@ -25,6 +28,20 @@ const AlertItem: React.FC<AlertItemProps> = ({ time, location, type }) => {
     return () => clearInterval(intervalId)
   }, [time])
 
+  const alertTypeDisplayNames: AlertTypeDisplayNameMapping = {
+    option1Value: 'Puppy needs petting',
+    option2Value: 'Clean up in aisle 7',
+    option3Value: 'Gas me up',
+  }
+
+  type AlertTypeValue = 'option1Value' | 'option2Value' | 'option3Value'
+
+  type AlertTypeDisplayNameMapping = {
+    [key in AlertTypeValue]: string
+  } & {
+    [key: string]: string | undefined
+  }
+
   return (
     <div
       style={{
@@ -33,7 +50,9 @@ const AlertItem: React.FC<AlertItemProps> = ({ time, location, type }) => {
         justifyItems: 'spaceBetween',
       }}
     >
-      <h4 role="listitem">Alert Type: {type}</h4>
+      <h4 data-testid="alertitem-type">
+        Alert Type: {alertTypeDisplayNames[type]}
+      </h4>
       <p>Alert Triggered: {elapsedTime}</p>
       <p>Location: {location}</p>
     </div>

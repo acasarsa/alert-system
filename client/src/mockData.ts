@@ -1,11 +1,11 @@
 export const mockAlerts = [
   {
-    type: 'Fire',
+    type: 'option3Value',
     time: new Date(),
     location: 'Building A, Floor 3',
   },
   {
-    type: 'Medical Emergency',
+    type: 'option2Value',
     time: new Date(),
     location: 'Building B, Room 101',
   },

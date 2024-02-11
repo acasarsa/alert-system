@@ -1,12 +1,15 @@
 import React from 'react'
 import { AlertItemProps } from '@shared/types/alertTypes'
 import AlertItem from '../AlertItem/AlertItem'
+import { useAlerts } from '../../context/AlertContext'
 
 type AlertListProps = {
   items: AlertItemProps[]
 }
 
-const AlertList: React.FC<AlertListProps> = ({ items }) => {
+const AlertList: React.FC<AlertListProps> = () => {
+  const { alerts } = useAlerts()
+
   return (
     <div
       style={{
@@ -15,8 +18,8 @@ const AlertList: React.FC<AlertListProps> = ({ items }) => {
         justifyContent: 'space-around',
       }}
     >
-      {items.map((item, index) => (
-        <AlertItem key={index} {...item} />
+      {alerts.map((alert, index) => (
+        <AlertItem key={index} {...alert} />
       ))}
     </div>
   )

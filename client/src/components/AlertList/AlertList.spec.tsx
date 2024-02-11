@@ -1,11 +1,22 @@
+import React from 'react'
 import { render, screen } from '@testing-library/react'
 import AlertList from './AlertList'
-import { mockAlerts } from '../../mockData'
+import { useAlerts } from '../../context/AlertContext'
 
-test('renders list of alert items', () => {
-  render(<AlertList items={mockAlerts} />)
+// TODO: horrible usage of test data... this whole option1Value and then checking the text it sucks.
+// but it's not that important right now. just super annoying
 
-  expect(screen.getAllByRole('listitem')).toHaveLength(mockAlerts.length)
-  expect(screen.getByText(/Fire/i)).toBeInTheDocument()
-  expect(screen.getByText(/Medical Emergency/i)).toBeInTheDocument()
+jest.mock('../../context/AlertContext', () => ({
+  useAlerts: () => ({
+    alerts: [
+      { time: new Date(), type: 'option1Value', location: 'Test Location' },
+    ], // Mock data
+  }),
+}))
+
+test('renders list of alert items with mock context', () => {
+  const { alerts } = useAlerts()
+  render(<AlertList items={alerts} />)
+
+  expect(screen.getByText(/Puppy needs petting/i)).toBeInTheDocument()
 })

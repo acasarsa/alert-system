@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
 import AlertList from './components/AlertList/AlertList'
-import { mockAlerts } from './mockData'
+import AlertForm from './components/AlertForm/AlertForm'
+import { useAlerts } from './context/AlertContext'
 
 function App() {
+  const { alerts } = useAlerts()
+  console.log(alerts)
   const [darkTheme, setDarkTheme] = useState(() =>
     localStorage.getItem('darkTheme')
       ? localStorage.getItem('darkTheme') === 'true'
@@ -23,7 +26,8 @@ function App() {
   return (
     <div className="App">
       <button onClick={toggleTheme}>Toggle Theme</button>
-      <AlertList items={mockAlerts} />
+      <AlertList items={alerts} />
+      <AlertForm />
     </div>
   )
 }

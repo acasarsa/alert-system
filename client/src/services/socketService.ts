@@ -11,5 +11,5 @@ export const subscribeToAlerts = (
 }
 
 export const triggerAlert = (alertData: AlertItemProps): void => {
-  socket.emit('newAlert', alertData)
+  socket.emit('triggerAlert', alertData)
 }

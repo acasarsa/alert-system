@@ -10,6 +10,12 @@ export const subscribeToAlerts = (
   socket.on('newAlert', callback)
 }
 
+export const unsubscribeFromAlerts = (
+  callback: (alert: AlertItemProps) => void
+): void => {
+  socket.off('newAlert', callback)
+}
+
 export const triggerAlert = (alertData: AlertItemProps): void => {
   socket.emit('triggerAlert', alertData)
 }

@@ -6,7 +6,10 @@ import {
   ReactNode,
 } from 'react'
 import { AlertItemProps } from '@shared/types/alertTypes'
-import { subscribeToAlerts } from '../services/socketService'
+import {
+  subscribeToAlerts,
+  unsubscribeFromAlerts,
+} from '../services/socketService'
 
 interface AlertCtxType {
   alerts: AlertItemProps[]
@@ -33,9 +36,12 @@ export const AlertProvider: React.FC<AlertProviderProps> = ({ children }) => {
 
   // start listening for events on startup
   useEffect(() => {
-    subscribeToAlerts((newAlert: AlertItemProps) => {
+    const handleNewAlert = (newAlert: AlertItemProps) => {
       setAlerts((prevAlert) => [newAlert, ...prevAlert])
-    })
+    }
+    subscribeToAlerts(handleNewAlert)
+
+    return () => unsubscribeFromAlerts(handleNewAlert)
   }, [])
 
   return <AlertCtx.Provider value={{ alerts }}>{children}</AlertCtx.Provider>

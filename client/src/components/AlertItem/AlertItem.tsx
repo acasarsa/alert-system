@@ -1,5 +1,6 @@
 import React from 'react'
 import { AlertItemProps } from '@shared/types/alertTypes'
+import { Text, Card, CardBody, Heading } from '@chakra-ui/react'
 
 const AlertItem: React.FC<AlertItemProps> = ({ time, location, type }) => {
   const [elapsedTime, setElapsedTime] = React.useState('')
@@ -42,7 +43,7 @@ const AlertItem: React.FC<AlertItemProps> = ({ time, location, type }) => {
   }, [time])
 
   const alertTypeDisplayNames: AlertTypeDisplayNameMapping = {
-    option1Value: 'Puppy needs petting',
+    option1Value: 'A puppy needs petting',
     option2Value: 'Clean up in aisle 7',
     option3Value: 'Gas me up',
   }
@@ -56,19 +57,13 @@ const AlertItem: React.FC<AlertItemProps> = ({ time, location, type }) => {
   }
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyItems: 'spaceBetween',
-      }}
-    >
-      <h4 data-testid="alertitem-type">
-        Alert Type: {alertTypeDisplayNames[type]}
-      </h4>
-      <p>Alert Triggered: {elapsedTime}</p>
-      <p>Location: {location}</p>
-    </div>
+    <Card maxW="xs" minW="xs" p={5} shadow="md" flex="1" borderRadius="lg">
+      <Heading size="md">{alertTypeDisplayNames[type]}</Heading>
+      <CardBody>
+        <Text mt={2}>Alert Triggered: {elapsedTime}</Text>
+        <Text mt={2}>Location: {location}</Text>
+      </CardBody>
+    </Card>
   )
 }
 

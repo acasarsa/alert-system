@@ -1,31 +1,18 @@
-import React, { useEffect, useState } from 'react'
 import './App.css'
+import { useColorMode, Button } from '@chakra-ui/react'
 import AlertList from './components/AlertList/AlertList'
 import AlertForm from './components/AlertForm/AlertForm'
 import { useAlerts } from './context/AlertContext'
 
 function App() {
   const { alerts } = useAlerts()
-  console.log(alerts)
-  const [darkTheme, setDarkTheme] = useState(() =>
-    localStorage.getItem('darkTheme')
-      ? localStorage.getItem('darkTheme') === 'true'
-      : window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches
-  )
-
-  useEffect(() => {
-    document.body.classList.toggle('dark-theme', darkTheme)
-    localStorage.setItem('darkTheme', darkTheme.toString())
-  }, [darkTheme])
-
-  const toggleTheme = () => {
-    setDarkTheme(!darkTheme)
-  }
+  const { colorMode, toggleColorMode } = useColorMode()
 
   return (
     <div className="App">
-      <button onClick={toggleTheme}>Toggle Theme</button>
+      <Button m={4} onClick={toggleColorMode}>
+        Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+      </Button>
       <AlertList items={alerts} />
       <AlertForm />
     </div>

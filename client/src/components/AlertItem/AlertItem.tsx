@@ -6,16 +6,29 @@ const AlertItem: React.FC<AlertItemProps> = ({ time, location, type }) => {
 
   React.useEffect(() => {
     const updateElapsedTime = () => {
+      if (time == null) {
+        setElapsedTime('0s')
+        return
+      }
       const alertCreateTime = new Date(time)
       const now = new Date()
       const diffInSeconds = Math.round(
         (now.getTime() - alertCreateTime.getTime()) / 1000
       )
-      const minutes = Math.floor(diffInSeconds / 60)
+
+      const hours = Math.floor(diffInSeconds / 3600)
+      const minutes = Math.floor((diffInSeconds % 3600) / 60)
       const seconds = diffInSeconds % 60
 
-      // Format the time to ensure two digits for seconds
-      setElapsedTime(`${minutes}m ${seconds.toString().padStart(2, '0')}s ago`)
+      // done this way for readability
+      setElapsedTime(
+        `
+        ${hours > 0 ? `${hours}h ${minutes}m ${seconds}s ago` : ''}
+        ${minutes > 0 ? `${minutes}m ` : ''}
+        ${seconds}s ago`
+          .trim()
+          .replace(/\s+/g, ' ')
+      )
     }
 
     // Update every second

@@ -19,7 +19,7 @@ const AlertList: React.FC<AlertListProps> = () => {
       }}
     >
       {alerts.map((alert, index) => (
-        <AlertItem key={index} {...alert} />
+        <AlertItem key={`${alert.type}-${alert.time}-${index}`} {...alert} />
       ))}
     </div>
   )

@@ -12,7 +12,7 @@ import { triggerAlert } from 'src/services/socketService'
 
 const AlertForm = () => {
   const initialFormData = {
-    time: new Date(),
+    time: null,
     type: '',
     location: '',
   }
@@ -31,7 +31,7 @@ const AlertForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    triggerAlert(alertDetails)
+    triggerAlert({ ...alertDetails, time: new Date() })
     setAlertDetails(initialFormData)
   }
 

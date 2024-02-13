@@ -4,5 +4,10 @@ The Real-Time Alert Dashboard is a web application built using React, TypeScript
 
 TODOs:
 
-1. fill out readme later with the set up instructions and other details
-2. react routing to separate form and active alerts
+- [ ] fill out readme later with the set up instructions and other details
+- [x] react routing to separate form and active alerts
+- [ ] make it so bell only shows if user has unseen alerts.
+- [ ] make icon wiggle.
+- [ ] add a hover over icon to tell people what it means.
+- [ ] add a toast letting user know about the alerts.
+- this will require some updates to state management. i think adding a seen attribute to an alert would be an easy way to address it. then when a new alert is added i have an unseenAlerts state turn tot true and false when they visit the alerts page. would need to make onclick on the link to and useNavigate hook to navigate instead of to='/alerts'

@@ -2,7 +2,6 @@ import './App.css'
 import {
   useColorMode,
   Button,
-  Box,
   Flex,
   Link as ChakraLink,
   LinkProps as ChakraLinkProps,
